@@ -1,15 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+// import './App.css';
 
+// App()関数でJSXを設定
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
+        {/* imgタグのsrc属性でlogoを読み込み */}
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        {/* <p>
           Edit <code>src/App.js</code> and save to reload.
-        </p>
+          </p>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -17,10 +19,11 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
-        </a>
+        </a> */}
+
       </header>
     </div>
   );
 }
-
+// Appという名前でエクスポートされる
 export default App;

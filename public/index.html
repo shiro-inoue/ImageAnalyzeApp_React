@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="ja">
+
+<head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -25,19 +23,84 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-  </head>
-  <body>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <script type="text/javascript" src="../src/App.js"></script>
+  <script type="text/javascript" src="../src/index.js"></script> -->
+
+    <!-- 現状はindex.htmlと同じフォルダにあるjsファイルしか参照できず、原因は不明 -->
+    <script type="text/javascript" src="./constant.js"></script>
+    <script type="text/javascript" src="./controller.js"></script>
+    <script type="text/javascript" src="./viewer.js"></script>
+</head>
+
+<body>
+    <!-- JSが動かない場合に表示するテキスト -->
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- コンテンツ部分 -->
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <body>
+        <!-- 操作パネル -->
+        <form id="operationTypeId">
+            <input type="radio" disabled id="colorPix" name="operationType" value="colorPix" checked="checked"
+                onclick="clearSelectRange()">
+            <label for="colorPix">カラーピッカ</label>
+            <input type="radio" disabled id="selectRect" name="operationType" value="selectRect"
+                onclick="clearPixelColor()">
+            <label for="selectRect">範囲指定</label><BR>
+        </form>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        カラーフォーマット
+        <select id="colorFormat" disabled>
+            <option value="RGB">RGB</option>
+            <option value="HSV">HSV</option>
+            <option value="YUV">YUV</option>
+        </select>
+        階調化
+        <select id="binNumberId" disabled>
+            <option value="256">なし</option>
+            <option value="32">32階調</option>
+            <option value="16">16階調</option>
+            <option value="8">8階調</option>
+            <option value="4">4階調</option>
+        </select><BR>
+        選択ピクセル色<br>
+        <span id="pixelColor"></span><br>
+        座標<br>
+        <span id="imageLocation"></span><br>
+
+        <input type="file" id="fileSelect" accept="image/jpeg,image/png,image/gif" onchange="readImg()"><BR>
+        <input type="button" disabled id="analysisImg" value="解析" onclick="analysisImg()"><BR>
+
+        <!-- 元画表示 -->
+        <Div>
+            <canvas width="320" height="240" style="position: relative;"></canvas>
+            <canvas id="baseImg" width="320" height="240" style="position: absolute; left: 0;"></canvas>
+            <!-- 上に重ねたレイヤの方でイベントをとる必要あり -->
+            <canvas id="baseImgOverlayer" width="320" height="240" style="position: absolute; left: 0;"
+                onclick="clickBaseImg(event)" onmousemove="drawRectOnBaseImg(event)"></canvas>
+        </div>
+
+        <div style="width: 1000px;height:250px;overflow:auto;">
+            <!-- 成分画表示 -->
+            <div>
+                <canvas id="colorComponent1Img" width="320" height="240"></canvas>
+                <canvas id="colorComponent2Img" width="320" height="240"></canvas>
+                <canvas id="colorComponent3Img" width="320" height="240"></canvas>
+            </div>
+            <!-- ヒストグラム表示 -->
+            <div id="histgramImgId">
+                <canvas id="histgram1Img" width="320" height="240"></canvas>
+                <canvas id="histgram2Img" width="320" height="240"></canvas>
+                <canvas id="histgram3Img" width="320" height="240"></canvas>
+            </div>
+        </div>
+    </body>
+
+</body>
+
 </html>
